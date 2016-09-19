@@ -1,0 +1,55 @@
+Animation front_hand_swing
+Frame 35,0,32,48 100
+Frame 72,0,32,48 100
+Frame 107,0,32,48 100
+
+Animation back_hand_swing
+Frame 144,0,32,48 100
+Frame 184,0,35,48 100
+
+Animation cast
+Frame 224,0,32,48 100
+Frame 260,0,32,48 100
+
+Animation cast_end
+Frame 301,0,35,48 100
+
+Animation item
+Frame 348,0,36,48 100
+
+Animation walk
+Frame 0,64,32,48 50
+Frame 36,64,32,48 100
+Frame 72,64,32,48 50
+
+Animation cheer
+Frame 112,64,32,48 500
+Frame 148,64,32,48 500
+
+Animation bow
+Frame 192,64,36,48 100
+Frame 236,64,36,48 300
+Frame 280,64,36,48 100
+
+Animation blink
+Frame 0,0,32,48 2000
+Frame 0,128,32,48 100
+
+Animation wounded
+Frame 36,128,32,48 2000
+Frame 72,128,32,48 100
+
+Animation swooned
+Frame 112,128,48,48 100
+
+Animation hit
+Frame 191,134,36,50 100
+Frame 234,134,38,50 100
+Frame 279,134,36,50 100
+
+Animation stone
+Frame 0,192,32,48 100
+Frame 36,192,32,48 100
+Frame 72,192,32,48 100
+Frame 108,192,32,48 100
+

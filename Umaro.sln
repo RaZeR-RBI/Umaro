@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umaro", "Umaro\Umaro.csproj", "{94B7D041-4DBA-4F22-BAB0-DD9B4071D4DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94B7D041-4DBA-4F22-BAB0-DD9B4071D4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B7D041-4DBA-4F22-BAB0-DD9B4071D4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B7D041-4DBA-4F22-BAB0-DD9B4071D4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B7D041-4DBA-4F22-BAB0-DD9B4071D4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
