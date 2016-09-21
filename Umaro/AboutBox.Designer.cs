@@ -1,6 +1,6 @@
 ﻿namespace Umaro
 {
-    partial class AboutBox
+    sealed partial class AboutBox
     {
         /// <summary>
         /// Требуется переменная конструктора.

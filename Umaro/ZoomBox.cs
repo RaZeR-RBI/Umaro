@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Umaro
@@ -47,7 +44,7 @@ namespace Umaro
 
             base.OnCreateControl();
 
-            Panel ctlPanel = new Panel()
+            Panel ctlPanel = new Panel
                 {
                     Name = parentName + "_ctlPanel",
                     Size = new Size(96, 24),
@@ -57,7 +54,7 @@ namespace Umaro
                     BackColor = Color.Black
                 };
 
-            NoPadButton zoomOut = new NoPadButton()
+            NoPadButton zoomOut = new NoPadButton
                 {
                     Name = parentName + "_zoomOut",
                     OwnerDrawText = Text = @"-",
@@ -85,7 +82,7 @@ namespace Umaro
                     }
                 };
 
-            NoPadButton zoomIn = new NoPadButton()
+            NoPadButton zoomIn = new NoPadButton
             {
                 Name = parentName + "_zoomIn",
                 OwnerDrawText = Text = @"+",
@@ -98,7 +95,7 @@ namespace Umaro
 
             zoomIn.GotFocus += delegate
             {
-                this.Focus();
+                Focus();
             };
 
             zoomIn.Click += delegate
@@ -110,7 +107,7 @@ namespace Umaro
                     }
                 };
 
-            _scaleLabel = new Label()
+            _scaleLabel = new Label
                 {
                     AutoSize = false,
                     Text = @"100%",
@@ -134,7 +131,7 @@ namespace Umaro
 
         protected void SetImageScale(int scale)
         {
-            _scaleLabel.Text = scale.ToString() + @"00%";
+            _scaleLabel.Text = scale.ToString(CultureInfo.InvariantCulture) + @"00%";
             base.Image = ResizeImage(InitialImage, scale);
             Refresh();
         }
@@ -145,8 +142,8 @@ namespace Umaro
             base.OnPaint(paintEventArgs);
             if (_resizable)
             {
-                var rc = new Rectangle(this.ClientSize.Width - grab, this.ClientSize.Height - grab, grab, grab);
-                ControlPaint.DrawSizeGrip(paintEventArgs.Graphics, this.BackColor, rc);
+                var rc = new Rectangle(ClientSize.Width - grab, ClientSize.Height - grab, grab, grab);
+                ControlPaint.DrawSizeGrip(paintEventArgs.Graphics, BackColor, rc);
             }
         }
 
@@ -156,9 +153,16 @@ namespace Umaro
             if (_resizable)
                 if (m.Msg == 0x84)
                 {  // Trap WM_NCHITTEST
-                    var pos = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-                    if (pos.X >= this.ClientSize.Width - grab && pos.Y >= this.ClientSize.Height - grab)
+                    var pos = PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+                    if (pos.X >= ClientSize.Width - grab && pos.Y >= ClientSize.Height - grab)
                         m.Result = new IntPtr(17);  // HT_BOTTOMRIGHT
+                    
+                    //Clamp to MinimumSize
+                    if (ClientSize.Width < MinimumSize.Width)
+                        ClientSize = new Size(MinimumSize.Width, ClientSize.Height);
+
+                    if (ClientSize.Height < MinimumSize.Height)
+                        ClientSize = new Size(ClientSize.Width, MinimumSize.Height);
                 }
         }
 

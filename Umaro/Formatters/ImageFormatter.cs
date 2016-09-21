@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Umaro.Formatters
 {
     public class ImageFormatter : FileFormatter
     {
         #region Singleton initialization
-        private static ImageFormatter instance = new ImageFormatter();
+        private static readonly ImageFormatter instance = new ImageFormatter();
         public static ImageFormatter Instance
         {
             get { return instance; }

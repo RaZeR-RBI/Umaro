@@ -8,7 +8,7 @@ namespace Umaro.Formatters
     public class PlainTextFormatter : FileFormatter
     {
         #region Singleton initialization
-        private static PlainTextFormatter instance = new PlainTextFormatter();
+        private static readonly PlainTextFormatter instance = new PlainTextFormatter();
         public static PlainTextFormatter Instance
         {
             get { return instance; }
@@ -39,7 +39,6 @@ namespace Umaro.Formatters
             using (StreamReader rd = new StreamReader(path))
             {
                 AnimationInfo curAnim = null;
-                FrameInfo curFrame = null;
 
                 int i = 1;
                 string line = rd.ReadLine();
@@ -48,10 +47,8 @@ namespace Umaro.Formatters
                     if (line.StartsWith("Animation "))
                     {
                         if (curAnim != null)
-                        {
                             target.Animations.Add(curAnim.Name, curAnim);
-                            curFrame = null;
-                        }
+
                         curAnim = new AnimationInfo(line.Substring("Animation ".Length));
                     }
                     else if (line.StartsWith("Frame "))
@@ -68,16 +65,14 @@ namespace Umaro.Formatters
                         string[] values = line.Substring("Frame ".Length).Split(' ', ',');
                         try
                         {
-                            curFrame = new FrameInfo()
+                            curAnim.Frames.Add(new FrameInfo
                                 {
                                     X = int.Parse(values[0]),
                                     Y = int.Parse(values[1]),
                                     Width = int.Parse(values[2]),
                                     Height = int.Parse(values[3]),
                                     Delay = int.Parse(values[4])
-                                };
-
-                            curAnim.Frames.Add(curFrame);
+                                });
                         }
                         catch (Exception ex)
                         {

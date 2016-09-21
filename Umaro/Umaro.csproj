@@ -57,6 +57,12 @@
     <Compile Include="AnimationData.cs" />
     <Compile Include="AnimationContainer.cs" />
     <Compile Include="ColorGenerator.cs" />
+    <Compile Include="HeaderMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HeaderMenu.Designer.cs">
+      <DependentUpon>HeaderMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileIO.cs">
       <SubType>Form</SubType>
     </Compile>

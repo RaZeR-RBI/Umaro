@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Umaro.Formatters
+﻿namespace Umaro.Formatters
 {
     /// <summary>
     /// Base abstract class for XML and plain-text file reading/writing

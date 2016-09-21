@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace Umaro.Formatters
 {
     public class XMLFormatter : FileFormatter
     {
         #region Singleton initialization
-        private static XMLFormatter instance = new XMLFormatter();
+        private static readonly XMLFormatter instance = new XMLFormatter();
         public static XMLFormatter Instance
         {
             get { return instance; }
@@ -37,12 +35,12 @@ namespace Umaro.Formatters
                     foreach (FrameInfo frame in pair.Value.Frames)
                     {
                         wr.WriteStartElement("Frame");
-                        wr.WriteElementString("ID", i.ToString());
-                        wr.WriteElementString("X", frame.X.ToString());
-                        wr.WriteElementString("Y", frame.Y.ToString());
-                        wr.WriteElementString("Width", frame.Width.ToString());
-                        wr.WriteElementString("Height", frame.Height.ToString());
-                        wr.WriteElementString("Delay", frame.Delay.ToString());
+                        wr.WriteElementString("ID", i.ToString(CultureInfo.InvariantCulture));
+                        wr.WriteElementString("X", frame.X.ToString(CultureInfo.InvariantCulture));
+                        wr.WriteElementString("Y", frame.Y.ToString(CultureInfo.InvariantCulture));
+                        wr.WriteElementString("Width", frame.Width.ToString(CultureInfo.InvariantCulture));
+                        wr.WriteElementString("Height", frame.Height.ToString(CultureInfo.InvariantCulture));
+                        wr.WriteElementString("Delay", frame.Delay.ToString(CultureInfo.InvariantCulture));
                         wr.WriteEndElement();
                         i++;
                     }
@@ -73,25 +71,40 @@ namespace Umaro.Formatters
                                 curAnim = new AnimationInfo();
                                 break;
                             case "Name":
-                                curAnim.Name = rd.ReadElementContentAsString(); break;
+                                if (curAnim != null) 
+                                    curAnim.Name = rd.ReadElementContentAsString();
+                                break;
                             case "Frames":
-                                curAnim.Frames = new List<FrameInfo>(); break;
+                                if (curAnim != null) 
+                                    curAnim.Frames = new List<FrameInfo>();
+                                break;
                             case "Frame":
                                 curFrame = new FrameInfo(); break;
 
                             case "ID":
-                                curAnim.Frames.Insert(rd.ReadElementContentAsInt(), curFrame);
+                                if (curAnim != null) 
+                                    curAnim.Frames.Insert(rd.ReadElementContentAsInt(), curFrame);
                                 break;
                             case "X":
-                                curFrame.X = rd.ReadElementContentAsInt(); break;
+                                if (curFrame != null)
+                                    curFrame.X = rd.ReadElementContentAsInt();
+                                break;
                             case "Y":
-                                curFrame.Y = rd.ReadElementContentAsInt(); break;
+                                if (curFrame != null)
+                                    curFrame.Y = rd.ReadElementContentAsInt();
+                                break;
                             case "Width":
-                                curFrame.Width = rd.ReadElementContentAsInt(); break;
+                                if (curFrame != null)
+                                    curFrame.Width = rd.ReadElementContentAsInt();
+                                break;
                             case "Height":
-                                curFrame.Height = rd.ReadElementContentAsInt(); break;
+                                if (curFrame != null)
+                                    curFrame.Height = rd.ReadElementContentAsInt();
+                                break;
                             case "Delay":
-                                curFrame.Delay = rd.ReadElementContentAsInt(); break;
+                                if (curFrame != null)
+                                    curFrame.Delay = rd.ReadElementContentAsInt();
+                                break;
                         }
                     }
                     else if (rd.NodeType.Equals(XmlNodeType.EndElement))
@@ -99,7 +112,9 @@ namespace Umaro.Formatters
                         switch (rd.LocalName)
                         {
                             case "Animation":
-                                target.Animations.Add(curAnim.Name, curAnim); break;
+                                if (curAnim != null)
+                                    target.Animations.Add(curAnim.Name, curAnim);
+                                break;
                         }
                     }
                 }

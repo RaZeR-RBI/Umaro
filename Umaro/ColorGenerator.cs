@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Umaro
@@ -13,8 +12,8 @@ namespace Umaro
     public static class ColorGenerator
     {
         static List<Color> _colors = new List<Color>();
-        static List<Pen> _colorPens = new List<Pen>();
-        static List<Brush> _colorBrushes = new List<Brush>();
+        static readonly List<Pen> _colorPens = new List<Pen>();
+        static readonly List<Brush> _colorBrushes = new List<Brush>();
 
         /// <summary>
         /// Returns a KnownColor by it's index
@@ -51,7 +50,7 @@ namespace Umaro
             if (_colors.Count == 0)
                 mInitialize();
 
-            ImageList icons = new ImageList()
+            ImageList icons = new ImageList
             {
                 ColorDepth = ColorDepth.Depth32Bit
             };

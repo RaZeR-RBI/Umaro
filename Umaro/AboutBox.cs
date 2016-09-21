@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace Umaro
 {
-    partial class AboutBox : Form
+    sealed partial class AboutBox : Form
     {
-        private static AboutBox _instance = new AboutBox();
+        private static readonly AboutBox _instance = new AboutBox();
         public static AboutBox Instance
         {
             get { return _instance; }
@@ -20,12 +16,12 @@ namespace Umaro
         public AboutBox()
         {
             InitializeComponent();
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Версия {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = String.Format("О программе {0}", AssemblyTitle);
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = String.Format("Версия {0}", AssemblyVersion);
+            labelCopyright.Text = AssemblyCopyright;
+            labelCompanyName.Text = AssemblyCompany;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Методы доступа к атрибутам сборки
@@ -115,13 +111,13 @@ namespace Umaro
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void AboutBox_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
+            Hide();
         }
     }
 }

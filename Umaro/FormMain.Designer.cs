@@ -35,6 +35,8 @@
             this.pgFrameInfo = new System.Windows.Forms.PropertyGrid();
             this.cntMain = new System.Windows.Forms.SplitContainer();
             this.lblPreview = new System.Windows.Forms.Label();
+            this.zbPreview = new Umaro.ZoomBox();
+            this.zbMain = new Umaro.ZoomBox();
             this.cntSidebar = new System.Windows.Forms.SplitContainer();
             this.btnTabFrames = new System.Windows.Forms.Button();
             this.tabIcons = new System.Windows.Forms.ImageList(this.components);
@@ -54,48 +56,46 @@
             this.btnAddAnim = new System.Windows.Forms.Button();
             this.btnRemoveAnim = new System.Windows.Forms.Button();
             this.pnlBorder = new System.Windows.Forms.Panel();
+            this.resizeGrip1 = new Umaro.ResizeGrip();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.btnWindowMinimize = new System.Windows.Forms.Button();
-            this.btnWindowMinMax = new System.Windows.Forms.Button();
-            this.btnWindowClose = new System.Windows.Forms.Button();
-            this.menu = new System.Windows.Forms.MenuStrip();
+            this.sStrip = new System.Windows.Forms.StatusStrip();
+            this.tsLblCopyright = new System.Windows.Forms.ToolStripStatusLabel();
+            this.headerMenuMain = new Umaro.HeaderMenu(this.components);
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.xMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.XMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plainTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xMLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.plainTextToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutUmaroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sStrip = new System.Windows.Forms.StatusStrip();
-            this.tsLblCopyright = new System.Windows.Forms.ToolStripStatusLabel();
+            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ofDiag = new System.Windows.Forms.OpenFileDialog();
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.tmrPreview = new System.Windows.Forms.Timer(this.components);
             this.saveXmlDlg = new System.Windows.Forms.SaveFileDialog();
             this.openXmlDlg = new System.Windows.Forms.OpenFileDialog();
             this.saveTextDialog = new System.Windows.Forms.SaveFileDialog();
-            this.resizeGrip1 = new Umaro.ResizeGrip();
-            this.zbPreview = new Umaro.ZoomBox();
-            this.zbMain = new Umaro.ZoomBox();
-            this.plainTextToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openTextDlg = new System.Windows.Forms.OpenFileDialog();
             this.cntMain.Panel1.SuspendLayout();
             this.cntMain.Panel2.SuspendLayout();
             this.cntMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zbMain)).BeginInit();
             this.cntSidebar.Panel1.SuspendLayout();
             this.cntSidebar.Panel2.SuspendLayout();
             this.cntSidebar.SuspendLayout();
             this.pnlFrames.SuspendLayout();
             this.pnlAnimations.SuspendLayout();
             this.pnlBorder.SuspendLayout();
-            this.menu.SuspendLayout();
             this.sStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zbMain)).BeginInit();
+            this.headerMenuMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -168,6 +168,44 @@
             this.lblPreview.Size = new System.Drawing.Size(52, 13);
             this.lblPreview.TabIndex = 2;
             this.lblPreview.Text = "Preview";
+            // 
+            // zbPreview
+            // 
+            this.zbPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.zbPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.zbPreview.Image = null;
+            this.zbPreview.InitialImage = null;
+            this.zbPreview.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            this.zbPreview.Location = new System.Drawing.Point(-1, -1);
+            this.zbPreview.MinimumSize = new System.Drawing.Size(160, 160);
+            this.zbPreview.Name = "zbPreview";
+            this.zbPreview.Resizable = true;
+            this.zbPreview.Size = new System.Drawing.Size(160, 160);
+            this.zbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.zbPreview.TabIndex = 1;
+            this.zbPreview.TabStop = false;
+            this.zbPreview.Text = "+";
+            // 
+            // zbMain
+            // 
+            this.zbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.zbMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.zbMain.Image = null;
+            this.zbMain.InitialImage = null;
+            this.zbMain.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            this.zbMain.Location = new System.Drawing.Point(0, 3);
+            this.zbMain.Name = "zbMain";
+            this.zbMain.Resizable = false;
+            this.zbMain.Size = new System.Drawing.Size(496, 396);
+            this.zbMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.zbMain.TabIndex = 0;
+            this.zbMain.TabStop = false;
+            this.zbMain.Text = "+";
+            this.zbMain.Paint += new System.Windows.Forms.PaintEventHandler(this.zbMain_Paint);
+            this.zbMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.zbMain_MouseDown);
+            this.zbMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.zbMain_MouseMove);
             // 
             // cntSidebar
             // 
@@ -452,11 +490,8 @@
             this.pnlBorder.BackColor = System.Drawing.Color.Black;
             this.pnlBorder.Controls.Add(this.resizeGrip1);
             this.pnlBorder.Controls.Add(this.lblTitle);
-            this.pnlBorder.Controls.Add(this.btnWindowMinimize);
-            this.pnlBorder.Controls.Add(this.btnWindowMinMax);
-            this.pnlBorder.Controls.Add(this.btnWindowClose);
-            this.pnlBorder.Controls.Add(this.menu);
             this.pnlBorder.Controls.Add(this.sStrip);
+            this.pnlBorder.Controls.Add(this.headerMenuMain);
             this.pnlBorder.Controls.Add(this.cntMain);
             this.pnlBorder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBorder.Location = new System.Drawing.Point(3, 3);
@@ -464,6 +499,18 @@
             this.pnlBorder.Padding = new System.Windows.Forms.Padding(1);
             this.pnlBorder.Size = new System.Drawing.Size(706, 444);
             this.pnlBorder.TabIndex = 3;
+            // 
+            // resizeGrip1
+            // 
+            this.resizeGrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.resizeGrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.resizeGrip1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resizeGrip1.BackgroundImage")));
+            this.resizeGrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.resizeGrip1.Location = new System.Drawing.Point(689, 427);
+            this.resizeGrip1.Name = "resizeGrip1";
+            this.resizeGrip1.Size = new System.Drawing.Size(16, 16);
+            this.resizeGrip1.TabIndex = 7;
+            this.resizeGrip1.Target = this;
             // 
             // lblTitle
             // 
@@ -478,168 +525,6 @@
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Umaro";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnWindowMinimize
-            // 
-            this.btnWindowMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnWindowMinimize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.btnWindowMinimize.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.btnWindowMinimize.FlatAppearance.BorderSize = 0;
-            this.btnWindowMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWindowMinimize.Image = global::Umaro.Properties.Resources.window_minimize;
-            this.btnWindowMinimize.Location = new System.Drawing.Point(649, 5);
-            this.btnWindowMinimize.Margin = new System.Windows.Forms.Padding(0);
-            this.btnWindowMinimize.Name = "btnWindowMinimize";
-            this.btnWindowMinimize.Size = new System.Drawing.Size(16, 16);
-            this.btnWindowMinimize.TabIndex = 6;
-            this.btnWindowMinimize.UseVisualStyleBackColor = false;
-            this.btnWindowMinimize.Click += new System.EventHandler(this.btnWindowMinimize_Click);
-            // 
-            // btnWindowMinMax
-            // 
-            this.btnWindowMinMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnWindowMinMax.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.btnWindowMinMax.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.btnWindowMinMax.FlatAppearance.BorderSize = 0;
-            this.btnWindowMinMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWindowMinMax.Image = global::Umaro.Properties.Resources.window_maximize;
-            this.btnWindowMinMax.Location = new System.Drawing.Point(667, 5);
-            this.btnWindowMinMax.Margin = new System.Windows.Forms.Padding(0);
-            this.btnWindowMinMax.Name = "btnWindowMinMax";
-            this.btnWindowMinMax.Size = new System.Drawing.Size(16, 16);
-            this.btnWindowMinMax.TabIndex = 5;
-            this.btnWindowMinMax.UseVisualStyleBackColor = false;
-            this.btnWindowMinMax.Click += new System.EventHandler(this.btnWindowMinMax_Click);
-            // 
-            // btnWindowClose
-            // 
-            this.btnWindowClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnWindowClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.btnWindowClose.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.btnWindowClose.FlatAppearance.BorderSize = 0;
-            this.btnWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWindowClose.Image = global::Umaro.Properties.Resources.window_close;
-            this.btnWindowClose.Location = new System.Drawing.Point(685, 5);
-            this.btnWindowClose.Margin = new System.Windows.Forms.Padding(0);
-            this.btnWindowClose.Name = "btnWindowClose";
-            this.btnWindowClose.Size = new System.Drawing.Size(16, 16);
-            this.btnWindowClose.TabIndex = 3;
-            this.btnWindowClose.UseVisualStyleBackColor = false;
-            this.btnWindowClose.Click += new System.EventHandler(this.btnWindowClose_Click);
-            // 
-            // menu
-            // 
-            this.menu.AutoSize = false;
-            this.menu.BackColor = System.Drawing.Color.Silver;
-            this.menu.BackgroundImage = global::Umaro.Properties.Resources.toolbar_back;
-            this.menu.GripMargin = new System.Windows.Forms.Padding(2, 0, 0, 0);
-            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menu.Location = new System.Drawing.Point(1, 1);
-            this.menu.Name = "menu";
-            this.menu.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
-            this.menu.Size = new System.Drawing.Size(704, 24);
-            this.menu.TabIndex = 1;
-            this.menu.Text = "menuStrip1";
-            this.menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.menu_MouseDown);
-            this.menu.MouseLeave += new System.EventHandler(this.menu_MouseLeave);
-            this.menu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.menu_MouseMove);
-            this.menu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.menu_MouseUp);
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.AutoSize = false;
-            this.fileToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.importToolStripMenuItem,
-            this.exportToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 22);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.imageToolStripMenuItem,
-            this.xMLToolStripMenuItem1,
-            this.plainTextToolStripMenuItem1});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.importToolStripMenuItem.Text = "Import...";
-            // 
-            // imageToolStripMenuItem
-            // 
-            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.imageToolStripMenuItem.Text = "Image";
-            this.imageToolStripMenuItem.Click += new System.EventHandler(this.loadImageToolStripMenuItem_Click);
-            // 
-            // xMLToolStripMenuItem1
-            // 
-            this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
-            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.xMLToolStripMenuItem1.Text = "XML";
-            this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.loadXMLToolStripMenuItem_Click);
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.XMLToolStripMenuItem,
-            this.plainTextToolStripMenuItem});
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exportToolStripMenuItem.Text = "Export...";
-            // 
-            // XMLToolStripMenuItem
-            // 
-            this.XMLToolStripMenuItem.Name = "XMLToolStripMenuItem";
-            this.XMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.XMLToolStripMenuItem.Text = "XML";
-            this.XMLToolStripMenuItem.Click += new System.EventHandler(this.exportXMLToolStripMenuItem_Click);
-            // 
-            // plainTextToolStripMenuItem
-            // 
-            this.plainTextToolStripMenuItem.Name = "plainTextToolStripMenuItem";
-            this.plainTextToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.plainTextToolStripMenuItem.Text = "Plain text";
-            this.plainTextToolStripMenuItem.Click += new System.EventHandler(this.plainTextToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.AutoSize = false;
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutUmaroToolStripMenuItem});
-            this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(50, 22);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutUmaroToolStripMenuItem
-            // 
-            this.aboutUmaroToolStripMenuItem.Name = "aboutUmaroToolStripMenuItem";
-            this.aboutUmaroToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutUmaroToolStripMenuItem.Text = "About Umaro";
-            this.aboutUmaroToolStripMenuItem.Click += new System.EventHandler(this.aboutUmaroToolStripMenuItem_Click);
             // 
             // sStrip
             // 
@@ -663,6 +548,142 @@
             this.tsLblCopyright.Name = "tsLblCopyright";
             this.tsLblCopyright.Size = new System.Drawing.Size(345, 15);
             this.tsLblCopyright.Text = "Umaro - a sprite animation tool © RawByte Interactive, 2016";
+            // 
+            // headerMenuMain
+            // 
+            this.headerMenuMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.headerMenuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem,
+            this.xToolStripMenuItem,
+            this.oToolStripMenuItem,
+            this.minStripMenuItem});
+            this.headerMenuMain.Location = new System.Drawing.Point(1, 1);
+            this.headerMenuMain.Name = "headerMenuMain";
+            this.headerMenuMain.Size = new System.Drawing.Size(704, 24);
+            this.headerMenuMain.TabIndex = 8;
+            this.headerMenuMain.Target = this;
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.importToolStripMenuItem,
+            this.exportToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imageToolStripMenuItem,
+            this.xMLToolStripMenuItem,
+            this.plainTextToolStripMenuItem});
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Text = "Import...";
+            // 
+            // imageToolStripMenuItem
+            // 
+            this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.imageToolStripMenuItem.Text = "Image";
+            this.imageToolStripMenuItem.Click += new System.EventHandler(this.loadImageToolStripMenuItem_Click);
+            // 
+            // xMLToolStripMenuItem
+            // 
+            this.xMLToolStripMenuItem.Name = "xMLToolStripMenuItem";
+            this.xMLToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.xMLToolStripMenuItem.Text = "XML";
+            this.xMLToolStripMenuItem.Click += new System.EventHandler(this.loadXMLToolStripMenuItem_Click);
+            // 
+            // plainTextToolStripMenuItem
+            // 
+            this.plainTextToolStripMenuItem.Name = "plainTextToolStripMenuItem";
+            this.plainTextToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.plainTextToolStripMenuItem.Text = "Plain text";
+            this.plainTextToolStripMenuItem.Click += new System.EventHandler(this.plainTextToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xMLToolStripMenuItem1,
+            this.plainTextToolStripMenuItem1});
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Text = "Export...";
+            // 
+            // xMLToolStripMenuItem1
+            // 
+            this.xMLToolStripMenuItem1.Name = "xMLToolStripMenuItem1";
+            this.xMLToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.xMLToolStripMenuItem1.Text = "XML";
+            this.xMLToolStripMenuItem1.Click += new System.EventHandler(this.exportXMLToolStripMenuItem_Click);
+            // 
+            // plainTextToolStripMenuItem1
+            // 
+            this.plainTextToolStripMenuItem1.Name = "plainTextToolStripMenuItem1";
+            this.plainTextToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
+            this.plainTextToolStripMenuItem1.Text = "Plain text";
+            this.plainTextToolStripMenuItem1.Click += new System.EventHandler(this.exportPlainTextToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutUmaroToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutUmaroToolStripMenuItem
+            // 
+            this.aboutUmaroToolStripMenuItem.Name = "aboutUmaroToolStripMenuItem";
+            this.aboutUmaroToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.aboutUmaroToolStripMenuItem.Text = "About Umaro";
+            this.aboutUmaroToolStripMenuItem.Click += new System.EventHandler(this.aboutUmaroToolStripMenuItem_Click);
+            // 
+            // xToolStripMenuItem
+            // 
+            this.xToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.xToolStripMenuItem.Image = global::Umaro.Properties.Resources.window_close;
+            this.xToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(21, 20);
+            this.xToolStripMenuItem.Click += new System.EventHandler(this.btnWindowClose_Click);
+            // 
+            // oToolStripMenuItem
+            // 
+            this.oToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.oToolStripMenuItem.Image = global::Umaro.Properties.Resources.window_maximize;
+            this.oToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.oToolStripMenuItem.Name = "oToolStripMenuItem";
+            this.oToolStripMenuItem.Size = new System.Drawing.Size(21, 20);
+            this.oToolStripMenuItem.Click += new System.EventHandler(this.btnWindowMinMax_Click);
+            // 
+            // minStripMenuItem
+            // 
+            this.minStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.minStripMenuItem.Image = global::Umaro.Properties.Resources.window_minimize;
+            this.minStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.minStripMenuItem.Name = "minStripMenuItem";
+            this.minStripMenuItem.Size = new System.Drawing.Size(21, 20);
+            this.minStripMenuItem.Click += new System.EventHandler(this.btnWindowMinimize_Click);
             // 
             // ofDiag
             // 
@@ -692,63 +713,6 @@
             // 
             this.saveTextDialog.Filter = "Text Files|*.txt";
             // 
-            // resizeGrip1
-            // 
-            this.resizeGrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.resizeGrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.resizeGrip1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resizeGrip1.BackgroundImage")));
-            this.resizeGrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.resizeGrip1.Location = new System.Drawing.Point(689, 427);
-            this.resizeGrip1.Name = "resizeGrip1";
-            this.resizeGrip1.Size = new System.Drawing.Size(16, 16);
-            this.resizeGrip1.TabIndex = 7;
-            this.resizeGrip1.Target = this;
-            // 
-            // zbPreview
-            // 
-            this.zbPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.zbPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.zbPreview.Image = null;
-            this.zbPreview.InitialImage = null;
-            this.zbPreview.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            this.zbPreview.Location = new System.Drawing.Point(-1, -1);
-            this.zbPreview.MinimumSize = new System.Drawing.Size(160, 160);
-            this.zbPreview.Name = "zbPreview";
-            this.zbPreview.Resizable = true;
-            this.zbPreview.Size = new System.Drawing.Size(160, 160);
-            this.zbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.zbPreview.TabIndex = 1;
-            this.zbPreview.TabStop = false;
-            this.zbPreview.Text = "+";
-            // 
-            // zbMain
-            // 
-            this.zbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.zbMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.zbMain.Image = null;
-            this.zbMain.InitialImage = null;
-            this.zbMain.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            this.zbMain.Location = new System.Drawing.Point(0, 3);
-            this.zbMain.Name = "zbMain";
-            this.zbMain.Resizable = false;
-            this.zbMain.Size = new System.Drawing.Size(496, 396);
-            this.zbMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.zbMain.TabIndex = 0;
-            this.zbMain.TabStop = false;
-            this.zbMain.Text = "+";
-            this.zbMain.Paint += new System.Windows.Forms.PaintEventHandler(this.zbMain_Paint);
-            this.zbMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.zbMain_MouseDown);
-            this.zbMain.MouseMove += new System.Windows.Forms.MouseEventHandler(this.zbMain_MouseMove);
-            // 
-            // plainTextToolStripMenuItem1
-            // 
-            this.plainTextToolStripMenuItem1.Name = "plainTextToolStripMenuItem1";
-            this.plainTextToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.plainTextToolStripMenuItem1.Text = "Plain text";
-            this.plainTextToolStripMenuItem1.Click += new System.EventHandler(this.plainTextToolStripMenuItem1_Click);
-            // 
             // openTextDlg
             // 
             this.openTextDlg.Filter = "Text Files|*.txt";
@@ -763,7 +727,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menu;
+            this.MainMenuStrip = this.headerMenuMain;
             this.MinimumSize = new System.Drawing.Size(600, 300);
             this.Name = "FormMain";
             this.Padding = new System.Windows.Forms.Padding(3);
@@ -773,6 +737,8 @@
             this.cntMain.Panel1.PerformLayout();
             this.cntMain.Panel2.ResumeLayout(false);
             this.cntMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.zbMain)).EndInit();
             this.cntSidebar.Panel1.ResumeLayout(false);
             this.cntSidebar.Panel2.ResumeLayout(false);
             this.cntSidebar.ResumeLayout(false);
@@ -781,12 +747,10 @@
             this.pnlAnimations.ResumeLayout(false);
             this.pnlBorder.ResumeLayout(false);
             this.pnlBorder.PerformLayout();
-            this.menu.ResumeLayout(false);
-            this.menu.PerformLayout();
             this.sStrip.ResumeLayout(false);
             this.sStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.zbMain)).EndInit();
+            this.headerMenuMain.ResumeLayout(false);
+            this.headerMenuMain.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -796,22 +760,13 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private ZoomBox zbMain;
-        private System.Windows.Forms.MenuStrip menu;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.PropertyGrid pgFrameInfo;
         private System.Windows.Forms.SplitContainer cntMain;
         private System.Windows.Forms.SplitContainer cntSidebar;
         private System.Windows.Forms.StatusStrip sStrip;
         private ZoomBox zbPreview;
         private System.Windows.Forms.Label lblPreview;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutUmaroToolStripMenuItem;
         private System.Windows.Forms.Panel pnlBorder;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Button btnWindowClose;
-        private System.Windows.Forms.Button btnWindowMinMax;
-        private System.Windows.Forms.Button btnWindowMinimize;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.ToolStripStatusLabel tsLblCopyright;
         private System.Windows.Forms.ImageList tabIcons;
@@ -836,16 +791,25 @@
         private System.Windows.Forms.Button btnTabFrames;
         private System.Windows.Forms.Button btnAddFrame;
         private System.Windows.Forms.Button btnRemoveFrame;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem XMLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem plainTextToolStripMenuItem;
         private ResizeGrip resizeGrip1;
         private System.Windows.Forms.SaveFileDialog saveTextDialog;
-        private System.Windows.Forms.ToolStripMenuItem plainTextToolStripMenuItem1;
         private System.Windows.Forms.OpenFileDialog openTextDlg;
+        private HeaderMenu headerMenuMain;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem plainTextToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xMLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem plainTextToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutUmaroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minStripMenuItem;
     }
 }
 

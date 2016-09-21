@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+#if SYS_DRAWING
 using System.Drawing;
-using System.Linq;
-using System.Text;
+#endif
 
 namespace Umaro
 {
@@ -10,7 +9,7 @@ namespace Umaro
     {
         //TODO: Add multiple document support
         #region Singleton initialization
-        private static AnimationContainer _instance = new AnimationContainer();
+        private static readonly AnimationContainer _instance = new AnimationContainer();
         public static AnimationContainer Instance
         {
             get { return _instance; }
@@ -18,12 +17,15 @@ namespace Umaro
         #endregion
 
         #region Fields
+
+#if SYS_DRAWING
         private Bitmap _image;
         public Bitmap Sprite
         {
             get { return _image; }
             set {_image = value; }
         }
+#endif
 
         private Dictionary<string, AnimationInfo> _animations 
             = new Dictionary<string, AnimationInfo>();
@@ -37,7 +39,9 @@ namespace Umaro
         #region Methods()
         public void New()
         {
+#if SYS_DRAWING
             _image = null;
+#endif
             _animations = new Dictionary<string, AnimationInfo>();
         }
         #endregion

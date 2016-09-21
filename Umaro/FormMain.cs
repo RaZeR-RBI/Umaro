@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Umaro.Formatters;
 
@@ -18,14 +13,13 @@ namespace Umaro
         #region Fields
 
         //Fields related to preview window
-        private AnimationInfo _lastAnimation = null;
-        private long _ticks = 0;
-        private int _frameIndex = 0;
+        private AnimationInfo _lastAnimation;
+        private long _ticks;
+        private int _frameIndex;
 
         //TODO: Move fonts and colors to separate class to allow custom styling
-        private Font _overlayFont = new Font(FontFamily.GenericSansSerif, 10.0f);
-
-        private Pen _selectionPen = new Pen(new SolidBrush(Color.White))
+        private readonly Font _overlayFont = new Font(FontFamily.GenericSansSerif, 10.0f);
+        private readonly Pen _selectionPen = new Pen(new SolidBrush(Color.White))
             {
                 DashStyle = System.Drawing.Drawing2D.DashStyle.Dot
             };
@@ -33,141 +27,82 @@ namespace Umaro
         #endregion
 
         #region Initialization
-
         //Form's constructor
         public FormMain()
         {
             InitializeComponent();
-
-            //TODO: Move these 2 lines to custom menu control
-            MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
-            menu.Renderer = new CustomMenuRenderer();
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+            headerMenuMain.Renderer = new CustomMenuRenderer();
 
             lvAnimations.SmallImageList = ColorGenerator.GenerateColorIcons();
             cntMain.Panel2MinSize = 200; //HACK: Bug workaround
         }
-
-        #endregion
-
-        //TODO: Move window drag handling and control buttons to separate custom control
-
-        #region Window drag handling
-
-        private bool mouseDown;
-        private Point lastLocation;
-
-        private void menu_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.X < 100)
-                return; //Don't drag if clicked on menu buttons
-
-            mouseDown = true;
-            lastLocation = e.Location;
-        }
-
-        private void menu_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (mouseDown)
-            {
-                this.Location = new Point((this.Location.X - lastLocation.X) + e.X,
-                                          (this.Location.Y - lastLocation.Y) + e.Y);
-                this.Update();
-            }
-        }
-
-        private void menu_MouseUp(object sender, MouseEventArgs e)
-        {
-            mouseDown = false;
-        }
-
-        private void menu_MouseLeave(object sender, EventArgs e)
-        {
-            mouseDown = false;
-        }
-
         #endregion
 
         #region Window control buttons
-
         private void btnWindowClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnWindowMinMax_Click(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Maximized)
-                WindowState = FormWindowState.Normal;
-            else
-                WindowState = FormWindowState.Maximized;
+            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private void btnWindowMinimize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
-
         #endregion
 
         #region Menu button handling
-
+        //New
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             zbMain.Image = zbPreview.Image = zbMain.InitialImage = zbPreview.InitialImage = null;
-            _lastAnimation = null;
-            _ticks = _frameIndex = 0;
-            lvAnimations.Items.Clear();
-            lvFrames.Items.Clear();
-            pgFrameInfo.SelectedObject = null;
             AnimationContainer.Instance.New();
+            mShowDataFrom(AnimationContainer.Instance);
         }
 
+        //Import
         private void loadImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mOpenFile(AnimationContainer.Instance, ofDiag, ImageFormatter.Instance);
-            zbMain.Image = AnimationContainer.Instance.Sprite;
         }
 
         private void loadXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mOpenFile(AnimationContainer.Instance, openXmlDlg, XMLFormatter.Instance);
-            lvAnimations.Items.Clear();
-            foreach (string anim in AnimationContainer.Instance.Animations.Keys)
-                lvAnimations.Items.Add(anim);
-
-            mRefreshAnimIcons();
         }
 
+        private void plainTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mOpenFile(AnimationContainer.Instance, openTextDlg, PlainTextFormatter.Instance);
+        }
+
+        //Export
         private void exportXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mSaveFile(AnimationContainer.Instance, saveXmlDlg, XMLFormatter.Instance);
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void aboutUmaroToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AboutBox.Instance.Show();
-        }
-
-        private void plainTextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exportPlainTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mSaveFile(AnimationContainer.Instance, saveTextDialog, PlainTextFormatter.Instance);
         }
 
-        private void plainTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        //Exit
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mOpenFile(AnimationContainer.Instance, openTextDlg, PlainTextFormatter.Instance);
-            lvAnimations.Items.Clear();
-            foreach (string anim in AnimationContainer.Instance.Animations.Keys)
-                lvAnimations.Items.Add(anim);
-
-            mRefreshAnimIcons();
+            Close();
         }
 
+        //About
+        private void aboutUmaroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox.Instance.Show();
+        }
         #endregion
 
         #region Animations tab
@@ -223,7 +158,7 @@ namespace Umaro
                 _ticks = 0;
 
                 for (int i = 0; i < anim.Frames.Count; i++)
-                    lvFrames.Items.Add(string.Format("Frame #" + i.ToString()));
+                    lvFrames.Items.Add(string.Format("Frame #" + i.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
@@ -237,13 +172,18 @@ namespace Umaro
             if (anim == null)
                 return;
 
-            int fWidth = 16;
-            int fHeight = 16;
+            int fWidth;
+            int fHeight;
 
-            int.TryParse(txtFrameWidth.Text, out fWidth);
-            int.TryParse(txtFrameHeight.Text, out fHeight);
+            bool success = int.TryParse(txtFrameWidth.Text, out fWidth) & int.TryParse(txtFrameHeight.Text, out fHeight);
+            if (!success)
+            {
+                MessageBox.Show(@"Cannot create frame of defined size", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
 
-            FrameInfo frame = new FrameInfo()
+            FrameInfo frame = new FrameInfo
                 {
                     X = 0,
                     Y = 0,
@@ -256,7 +196,7 @@ namespace Umaro
 
             lvFrames.Items.Clear();
             for (int i = 0; i < anim.Frames.Count; i++)
-                lvFrames.Items.Add(string.Format("Frame #" + i.ToString()));
+                lvFrames.Items.Add(string.Format("Frame #" + i.ToString(CultureInfo.InvariantCulture)));
 
             lvFrames.SelectedIndices.Clear();
             lvFrames.Items[lvFrames.Items.Count - 1].Selected = true;
@@ -287,22 +227,16 @@ namespace Umaro
         private void pgFrameInfo_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             if (pgFrameInfo.SelectedObject != null)
-            {
-                if (pgFrameInfo.SelectedObject.GetType() == typeof (AnimationInfo))
+                if (pgFrameInfo.SelectedObject.GetType() == typeof(AnimationInfo))
                 {
-                    AnimationInfo newAnim = (AnimationInfo) pgFrameInfo.SelectedObject;
+                    AnimationInfo newAnim = (AnimationInfo)pgFrameInfo.SelectedObject;
                     string oldName = AnimationContainer.Instance.
                                                         Animations.FirstOrDefault(x => x.Value == newAnim).Key;
 
-                    lvAnimations.Items.Remove(FindItem(lvAnimations, oldName));
                     AnimationContainer.Instance.Animations.Remove(oldName);
-
-                    lvAnimations.Items.Add(newAnim.Name, 0);
                     AnimationContainer.Instance.Animations.Add(newAnim.Name, newAnim);
-
-                    mRefreshAnimIcons();
+                    mShowDataFrom(AnimationContainer.Instance);
                 }
-            }
         }
 
         private void zbMain_Paint(object sender, PaintEventArgs e)
@@ -313,26 +247,21 @@ namespace Umaro
             if (AnimationContainer.Instance.Animations.Count > 0)
             {
                 int scale = zbMain.ImageScale;
-                Point origin = new Point((zbMain.Size.Width - zbMain.Image.Width)/2,
-                                         (zbMain.Size.Height - zbMain.Image.Height)/2);
+                Point origin = new Point((zbMain.Size.Width - zbMain.Image.Width) / 2,
+                                         (zbMain.Size.Height - zbMain.Image.Height) / 2);
 
                 //Draw the frame borders
-                int i = 0;
                 foreach (AnimationInfo anim in AnimationContainer.Instance.Animations.Values)
                 {
-                    i = lvAnimations.FindItemWithText(anim.Name).Index;
+                    int i = lvAnimations.FindItemWithText(anim.Name).Index;
                     for (int j = 0; j < anim.Frames.Count; j++)
                     {
                         e.Graphics.DrawRectangle(ColorGenerator.GetPen(i),
-                                                 origin.X + scale*anim.Frames[j].X,
-                                                 origin.Y + scale*anim.Frames[j].Y,
-                                                 scale*anim.Frames[j].Width,
-                                                 scale*anim.Frames[j].Height);
-
-                        e.Graphics.DrawString("#" + j.ToString(), _overlayFont,
-                                              ColorGenerator.GetBrush(i),
-                                              origin.X + scale*anim.Frames[j].X,
-                                              origin.Y + scale*anim.Frames[j].Y);
+                                                 origin.X + scale * anim.Frames[j].X, origin.Y + scale * anim.Frames[j].Y,
+                                                 scale * anim.Frames[j].Width, scale * anim.Frames[j].Height);
+                        e.Graphics.DrawString("#" + j.ToString(CultureInfo.InvariantCulture),
+                                                _overlayFont, ColorGenerator.GetBrush(i),
+                                                origin.X + scale * anim.Frames[j].X, origin.Y + scale * anim.Frames[j].Y);
                     }
                 }
 
@@ -344,10 +273,8 @@ namespace Umaro
                 Point quantizedPos = mMapControlToLocal(zbMain.PointToClient(Cursor.Position));
                 if (frame != null)
                     e.Graphics.DrawRectangle(_selectionPen,
-                                             origin.X + quantizedPos.X*scale,
-                                             origin.Y + quantizedPos.Y*scale,
-                                             frame.Width*scale,
-                                             frame.Height*scale);
+                                             origin.X + quantizedPos.X * scale, origin.Y + quantizedPos.Y * scale,
+                                             frame.Width * scale, frame.Height * scale);
             }
         }
 
@@ -360,6 +287,7 @@ namespace Umaro
         {
             if (_lastAnimation == null)
             {
+                _frameIndex = 0;
                 zbPreview.Image = zbPreview.InitialImage = null;
                 return;
             }
@@ -391,7 +319,6 @@ namespace Umaro
             {
                 if (zbMain.InitialImage == null)
                     return;
-
                 frame.Location = mMapControlToLocal(e.Location);
             }
         }
@@ -400,8 +327,7 @@ namespace Umaro
         {
             if (pgFrameInfo.SelectedObject == null)
                 return;
-
-            if (pgFrameInfo.SelectedObject.GetType() == typeof (FrameInfo))
+            if (pgFrameInfo.SelectedObject.GetType() == typeof(FrameInfo))
                 zbMain.Invalidate();
         }
 

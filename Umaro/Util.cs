@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Umaro
@@ -26,15 +21,6 @@ namespace Umaro
             int i = 0;
             foreach (ListViewItem item in lvAnimations.Items)
                 item.ImageIndex = i++;
-        }
-
-        private ListViewItem FindItem(ListView lv, string text)
-        {
-            foreach (ListViewItem item in lv.Items)
-                if (item.Text == text)
-                    return item;
-
-            return null;
         }
 
         private void mUpdateFrame()
@@ -59,8 +45,8 @@ namespace Umaro
         private class CustomMenuRenderer : ToolStripProfessionalRenderer
         {
             //TODO: Move the colors and fonts to separate class to allow custom styling
-            private Brush back = new SolidBrush(Color.FromArgb(52, 52, 52));
-            private Pen border = new Pen(new SolidBrush(Color.FromArgb(25, 25, 25)));
+            private readonly Brush back = new SolidBrush(Color.FromArgb(52, 52, 52));
+            private readonly Pen border = new Pen(new SolidBrush(Color.FromArgb(25, 25, 25)));
 
             //Paint the menu item's background with custom color
             protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)

@@ -37,6 +37,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImage = global::Umaro.Properties.Resources.resize_grip_se;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.DoubleBuffered = true;
             this.Name = "ResizeGrip";
             this.Size = new System.Drawing.Size(16, 16);
