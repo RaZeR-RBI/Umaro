@@ -36,27 +36,32 @@
             this.cntMain = new System.Windows.Forms.SplitContainer();
             this.lblPreview = new System.Windows.Forms.Label();
             this.zbPreview = new Umaro.ZoomBox();
+            this.pnlCanvas = new Umaro.PanelNoFocusScroll();
             this.zbMain = new Umaro.ZoomBox();
             this.cntSidebar = new System.Windows.Forms.SplitContainer();
-            this.btnTabFrames = new System.Windows.Forms.Button();
-            this.tabIcons = new System.Windows.Forms.ImageList(this.components);
-            this.btnTabAnimations = new System.Windows.Forms.Button();
-            this.pnlFrames = new System.Windows.Forms.Panel();
-            this.btnAddFrame = new System.Windows.Forms.Button();
-            this.btnRemoveFrame = new System.Windows.Forms.Button();
-            this.lblSizeCross = new System.Windows.Forms.Label();
-            this.lblFrameSize = new System.Windows.Forms.Label();
-            this.txtFrameHeight = new System.Windows.Forms.TextBox();
-            this.txtFrameWidth = new System.Windows.Forms.TextBox();
-            this.lblAnimName = new System.Windows.Forms.Label();
-            this.lvFrames = new System.Windows.Forms.ListView();
-            this.pnlAnimations = new System.Windows.Forms.Panel();
+            this.tabSidebarTop = new Umaro.FlatTabControl(this.components);
+            this.tabAnimations = new System.Windows.Forms.TabPage();
+            this.pnlAnimControls = new System.Windows.Forms.Panel();
+            this.btnAnimPrevFrame = new System.Windows.Forms.Button();
+            this.btnAnimNextFrame = new System.Windows.Forms.Button();
+            this.btnAnimPlayPause = new System.Windows.Forms.Button();
+            this.btnAnimStop = new System.Windows.Forms.Button();
             this.lvAnimations = new System.Windows.Forms.ListView();
             this.clnAnimName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnAddAnim = new System.Windows.Forms.Button();
             this.btnRemoveAnim = new System.Windows.Forms.Button();
+            this.tabFrames = new System.Windows.Forms.TabPage();
+            this.btnAddFrame = new System.Windows.Forms.Button();
+            this.lblAnimName = new System.Windows.Forms.Label();
+            this.btnRemoveFrame = new System.Windows.Forms.Button();
+            this.lvFrames = new System.Windows.Forms.ListView();
+            this.lblSizeCross = new System.Windows.Forms.Label();
+            this.txtFrameWidth = new System.Windows.Forms.TextBox();
+            this.lblFrameSize = new System.Windows.Forms.Label();
+            this.txtFrameHeight = new System.Windows.Forms.TextBox();
+            this.tabIcons = new System.Windows.Forms.ImageList(this.components);
             this.pnlBorder = new System.Windows.Forms.Panel();
-            this.resizeGrip1 = new Umaro.ResizeGrip();
+            this.resizeGripForm = new Umaro.ResizeGrip();
             this.lblTitle = new System.Windows.Forms.Label();
             this.sStrip = new System.Windows.Forms.StatusStrip();
             this.tsLblCopyright = new System.Windows.Forms.ToolStripStatusLabel();
@@ -87,12 +92,15 @@
             this.cntMain.Panel2.SuspendLayout();
             this.cntMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).BeginInit();
+            this.pnlCanvas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zbMain)).BeginInit();
             this.cntSidebar.Panel1.SuspendLayout();
             this.cntSidebar.Panel2.SuspendLayout();
             this.cntSidebar.SuspendLayout();
-            this.pnlFrames.SuspendLayout();
-            this.pnlAnimations.SuspendLayout();
+            this.tabSidebarTop.SuspendLayout();
+            this.tabAnimations.SuspendLayout();
+            this.pnlAnimControls.SuspendLayout();
+            this.tabFrames.SuspendLayout();
             this.pnlBorder.SuspendLayout();
             this.sStrip.SuspendLayout();
             this.headerMenuMain.SuspendLayout();
@@ -146,7 +154,7 @@
             // 
             this.cntMain.Panel1.Controls.Add(this.lblPreview);
             this.cntMain.Panel1.Controls.Add(this.zbPreview);
-            this.cntMain.Panel1.Controls.Add(this.zbMain);
+            this.cntMain.Panel1.Controls.Add(this.pnlCanvas);
             this.cntMain.Panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 27);
             // 
             // cntMain.Panel2
@@ -173,33 +181,46 @@
             // 
             this.zbPreview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.zbPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.zbPreview.ControlsOnParent = false;
             this.zbPreview.Image = null;
             this.zbPreview.InitialImage = null;
             this.zbPreview.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            this.zbPreview.Location = new System.Drawing.Point(-1, -1);
+            this.zbPreview.Location = new System.Drawing.Point(0, 0);
             this.zbPreview.MinimumSize = new System.Drawing.Size(160, 160);
             this.zbPreview.Name = "zbPreview";
             this.zbPreview.Resizable = true;
-            this.zbPreview.Size = new System.Drawing.Size(160, 160);
+            this.zbPreview.Size = new System.Drawing.Size(162, 162);
             this.zbPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.zbPreview.TabIndex = 1;
             this.zbPreview.TabStop = false;
             this.zbPreview.Text = "+";
             // 
-            // zbMain
+            // pnlCanvas
             // 
-            this.zbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.pnlCanvas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlCanvas.AutoScroll = true;
+            this.pnlCanvas.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlCanvas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.pnlCanvas.Controls.Add(this.zbMain);
+            this.pnlCanvas.Location = new System.Drawing.Point(0, 0);
+            this.pnlCanvas.Name = "pnlCanvas";
+            this.pnlCanvas.Size = new System.Drawing.Size(499, 394);
+            this.pnlCanvas.TabIndex = 3;
+            // 
+            // zbMain
+            // 
             this.zbMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.zbMain.ControlsOnParent = true;
             this.zbMain.Image = null;
             this.zbMain.InitialImage = null;
             this.zbMain.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            this.zbMain.Location = new System.Drawing.Point(0, 3);
+            this.zbMain.Location = new System.Drawing.Point(0, 0);
             this.zbMain.Name = "zbMain";
             this.zbMain.Resizable = false;
-            this.zbMain.Size = new System.Drawing.Size(496, 396);
-            this.zbMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.zbMain.Size = new System.Drawing.Size(320, 183);
+            this.zbMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.zbMain.TabIndex = 0;
             this.zbMain.TabStop = false;
             this.zbMain.Text = "+";
@@ -220,10 +241,7 @@
             // cntSidebar.Panel1
             // 
             this.cntSidebar.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.cntSidebar.Panel1.Controls.Add(this.btnTabFrames);
-            this.cntSidebar.Panel1.Controls.Add(this.btnTabAnimations);
-            this.cntSidebar.Panel1.Controls.Add(this.pnlFrames);
-            this.cntSidebar.Panel1.Controls.Add(this.pnlAnimations);
+            this.cntSidebar.Panel1.Controls.Add(this.tabSidebarTop);
             // 
             // cntSidebar.Panel2
             // 
@@ -232,202 +250,105 @@
             this.cntSidebar.SplitterDistance = 224;
             this.cntSidebar.TabIndex = 0;
             // 
-            // btnTabFrames
+            // tabSidebarTop
             // 
-            this.btnTabFrames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.btnTabFrames.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnTabFrames.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabFrames.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnTabFrames.ForeColor = System.Drawing.Color.White;
-            this.btnTabFrames.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTabFrames.ImageKey = "Frame_12655.png";
-            this.btnTabFrames.ImageList = this.tabIcons;
-            this.btnTabFrames.Location = new System.Drawing.Point(102, 3);
-            this.btnTabFrames.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTabFrames.Name = "btnTabFrames";
-            this.btnTabFrames.Size = new System.Drawing.Size(80, 24);
-            this.btnTabFrames.TabIndex = 1;
-            this.btnTabFrames.Text = "Frames";
-            this.btnTabFrames.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnTabFrames.UseVisualStyleBackColor = false;
-            this.btnTabFrames.Click += new System.EventHandler(this.btnTabFrames_Click);
+            this.tabSidebarTop.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.tabSidebarTop.Controls.Add(this.tabAnimations);
+            this.tabSidebarTop.Controls.Add(this.tabFrames);
+            this.tabSidebarTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabSidebarTop.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabSidebarTop.ImageList = this.tabIcons;
+            this.tabSidebarTop.Location = new System.Drawing.Point(0, 0);
+            this.tabSidebarTop.Name = "tabSidebarTop";
+            this.tabSidebarTop.Padding = new System.Drawing.Point(0, 3);
+            this.tabSidebarTop.SelectedIndex = 0;
+            this.tabSidebarTop.Size = new System.Drawing.Size(201, 224);
+            this.tabSidebarTop.TabBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.tabSidebarTop.TabIndex = 3;
+            this.tabSidebarTop.SelectedIndexChanged += new System.EventHandler(this.tabSidebarTop_SelectedIndexChanged);
             // 
-            // tabIcons
+            // tabAnimations
             // 
-            this.tabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabIcons.ImageStream")));
-            this.tabIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.tabIcons.Images.SetKeyName(0, "Animation_10763.png");
-            this.tabIcons.Images.SetKeyName(1, "Frame_12655.png");
+            this.tabAnimations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.tabAnimations.Controls.Add(this.pnlAnimControls);
+            this.tabAnimations.Controls.Add(this.lvAnimations);
+            this.tabAnimations.Controls.Add(this.btnAddAnim);
+            this.tabAnimations.Controls.Add(this.btnRemoveAnim);
+            this.tabAnimations.ForeColor = System.Drawing.Color.White;
+            this.tabAnimations.ImageIndex = 0;
+            this.tabAnimations.Location = new System.Drawing.Point(4, 25);
+            this.tabAnimations.Name = "tabAnimations";
+            this.tabAnimations.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAnimations.Size = new System.Drawing.Size(193, 195);
+            this.tabAnimations.TabIndex = 0;
+            this.tabAnimations.Text = "Animations";
+            this.tabAnimations.UseVisualStyleBackColor = true;
             // 
-            // btnTabAnimations
+            // pnlAnimControls
             // 
-            this.btnTabAnimations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(78)))), ((int)(((byte)(78)))));
-            this.btnTabAnimations.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnTabAnimations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabAnimations.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnTabAnimations.ForeColor = System.Drawing.Color.White;
-            this.btnTabAnimations.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTabAnimations.ImageKey = "Animation_10763.png";
-            this.btnTabAnimations.ImageList = this.tabIcons;
-            this.btnTabAnimations.Location = new System.Drawing.Point(3, 3);
-            this.btnTabAnimations.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTabAnimations.Name = "btnTabAnimations";
-            this.btnTabAnimations.Size = new System.Drawing.Size(95, 24);
-            this.btnTabAnimations.TabIndex = 0;
-            this.btnTabAnimations.Text = "Animations";
-            this.btnTabAnimations.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnTabAnimations.UseVisualStyleBackColor = false;
-            this.btnTabAnimations.Click += new System.EventHandler(this.btnTabAnimations_Click);
+            this.pnlAnimControls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAnimControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.pnlAnimControls.Controls.Add(this.btnAnimPrevFrame);
+            this.pnlAnimControls.Controls.Add(this.btnAnimNextFrame);
+            this.pnlAnimControls.Controls.Add(this.btnAnimPlayPause);
+            this.pnlAnimControls.Controls.Add(this.btnAnimStop);
+            this.pnlAnimControls.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.pnlAnimControls.Location = new System.Drawing.Point(91, 164);
+            this.pnlAnimControls.Name = "pnlAnimControls";
+            this.pnlAnimControls.Size = new System.Drawing.Size(96, 25);
+            this.pnlAnimControls.TabIndex = 1;
             // 
-            // pnlFrames
+            // btnAnimPrevFrame
             // 
-            this.pnlFrames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlFrames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.pnlFrames.Controls.Add(this.btnAddFrame);
-            this.pnlFrames.Controls.Add(this.btnRemoveFrame);
-            this.pnlFrames.Controls.Add(this.lblSizeCross);
-            this.pnlFrames.Controls.Add(this.lblFrameSize);
-            this.pnlFrames.Controls.Add(this.txtFrameHeight);
-            this.pnlFrames.Controls.Add(this.txtFrameWidth);
-            this.pnlFrames.Controls.Add(this.lblAnimName);
-            this.pnlFrames.Controls.Add(this.lvFrames);
-            this.pnlFrames.Enabled = false;
-            this.pnlFrames.Location = new System.Drawing.Point(4, 31);
-            this.pnlFrames.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlFrames.Name = "pnlFrames";
-            this.pnlFrames.Size = new System.Drawing.Size(194, 189);
-            this.pnlFrames.TabIndex = 4;
-            this.pnlFrames.Visible = false;
+            this.btnAnimPrevFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimPrevFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnimPrevFrame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimPrevFrame.Image = global::Umaro.Properties.Resources.anim_prev;
+            this.btnAnimPrevFrame.Location = new System.Drawing.Point(49, 1);
+            this.btnAnimPrevFrame.Name = "btnAnimPrevFrame";
+            this.btnAnimPrevFrame.Size = new System.Drawing.Size(22, 22);
+            this.btnAnimPrevFrame.TabIndex = 3;
+            this.btnAnimPrevFrame.UseVisualStyleBackColor = false;
+            this.btnAnimPrevFrame.Click += new System.EventHandler(this.btnAnimPrevFrame_Click);
             // 
-            // btnAddFrame
+            // btnAnimNextFrame
             // 
-            this.btnAddFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(78)))), ((int)(((byte)(78)))));
-            this.btnAddFrame.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.btnAddFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddFrame.Image = global::Umaro.Properties.Resources.AddMark_10580;
-            this.btnAddFrame.Location = new System.Drawing.Point(3, 159);
-            this.btnAddFrame.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAddFrame.Name = "btnAddFrame";
-            this.btnAddFrame.Size = new System.Drawing.Size(28, 28);
-            this.btnAddFrame.TabIndex = 26;
-            this.btnAddFrame.UseVisualStyleBackColor = false;
-            this.btnAddFrame.Click += new System.EventHandler(this.btnAddFrame_Click);
+            this.btnAnimNextFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimNextFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnimNextFrame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimNextFrame.Image = global::Umaro.Properties.Resources.anim_next;
+            this.btnAnimNextFrame.Location = new System.Drawing.Point(73, 1);
+            this.btnAnimNextFrame.Name = "btnAnimNextFrame";
+            this.btnAnimNextFrame.Size = new System.Drawing.Size(22, 22);
+            this.btnAnimNextFrame.TabIndex = 2;
+            this.btnAnimNextFrame.UseVisualStyleBackColor = false;
+            this.btnAnimNextFrame.Click += new System.EventHandler(this.btnAnimNextFrame_Click);
             // 
-            // btnRemoveFrame
+            // btnAnimPlayPause
             // 
-            this.btnRemoveFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRemoveFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(78)))), ((int)(((byte)(78)))));
-            this.btnRemoveFrame.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.btnRemoveFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemoveFrame.Image = global::Umaro.Properties.Resources.Clearallrequests_8816;
-            this.btnRemoveFrame.Location = new System.Drawing.Point(33, 159);
-            this.btnRemoveFrame.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRemoveFrame.Name = "btnRemoveFrame";
-            this.btnRemoveFrame.Size = new System.Drawing.Size(28, 28);
-            this.btnRemoveFrame.TabIndex = 27;
-            this.btnRemoveFrame.UseVisualStyleBackColor = false;
-            this.btnRemoveFrame.Click += new System.EventHandler(this.btnRemoveFrame_Click);
+            this.btnAnimPlayPause.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnimPlayPause.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimPlayPause.Image = global::Umaro.Properties.Resources.anim_play;
+            this.btnAnimPlayPause.Location = new System.Drawing.Point(25, 1);
+            this.btnAnimPlayPause.Name = "btnAnimPlayPause";
+            this.btnAnimPlayPause.Size = new System.Drawing.Size(22, 22);
+            this.btnAnimPlayPause.TabIndex = 1;
+            this.btnAnimPlayPause.UseVisualStyleBackColor = false;
+            this.btnAnimPlayPause.Click += new System.EventHandler(this.btnAnimPlayPause_Click);
             // 
-            // lblSizeCross
+            // btnAnimStop
             // 
-            this.lblSizeCross.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSizeCross.AutoSize = true;
-            this.lblSizeCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.lblSizeCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblSizeCross.ForeColor = System.Drawing.Color.Gray;
-            this.lblSizeCross.Location = new System.Drawing.Point(150, 164);
-            this.lblSizeCross.Name = "lblSizeCross";
-            this.lblSizeCross.Size = new System.Drawing.Size(13, 13);
-            this.lblSizeCross.TabIndex = 25;
-            this.lblSizeCross.Text = "x";
-            // 
-            // lblFrameSize
-            // 
-            this.lblFrameSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFrameSize.AutoSize = true;
-            this.lblFrameSize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.lblFrameSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblFrameSize.ForeColor = System.Drawing.Color.Gray;
-            this.lblFrameSize.Location = new System.Drawing.Point(87, 166);
-            this.lblFrameSize.Name = "lblFrameSize";
-            this.lblFrameSize.Size = new System.Drawing.Size(35, 13);
-            this.lblFrameSize.TabIndex = 24;
-            this.lblFrameSize.Text = "Size:";
-            // 
-            // txtFrameHeight
-            // 
-            this.txtFrameHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFrameHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.txtFrameHeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFrameHeight.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtFrameHeight.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtFrameHeight.Location = new System.Drawing.Point(163, 164);
-            this.txtFrameHeight.Name = "txtFrameHeight";
-            this.txtFrameHeight.Size = new System.Drawing.Size(26, 16);
-            this.txtFrameHeight.TabIndex = 23;
-            this.txtFrameHeight.Text = "16";
-            this.txtFrameHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtFrameWidth
-            // 
-            this.txtFrameWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFrameWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.txtFrameWidth.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFrameWidth.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtFrameWidth.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.txtFrameWidth.Location = new System.Drawing.Point(122, 164);
-            this.txtFrameWidth.Name = "txtFrameWidth";
-            this.txtFrameWidth.Size = new System.Drawing.Size(26, 16);
-            this.txtFrameWidth.TabIndex = 22;
-            this.txtFrameWidth.Text = "16";
-            this.txtFrameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lblAnimName
-            // 
-            this.lblAnimName.AutoSize = true;
-            this.lblAnimName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.lblAnimName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblAnimName.ForeColor = System.Drawing.Color.Gray;
-            this.lblAnimName.Location = new System.Drawing.Point(7, 5);
-            this.lblAnimName.Name = "lblAnimName";
-            this.lblAnimName.Size = new System.Drawing.Size(11, 13);
-            this.lblAnimName.TabIndex = 21;
-            this.lblAnimName.Text = "-";
-            // 
-            // lvFrames
-            // 
-            this.lvFrames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvFrames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.lvFrames.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvFrames.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lvFrames.Location = new System.Drawing.Point(4, 23);
-            this.lvFrames.MultiSelect = false;
-            this.lvFrames.Name = "lvFrames";
-            this.lvFrames.Size = new System.Drawing.Size(186, 131);
-            this.lvFrames.TabIndex = 20;
-            this.lvFrames.UseCompatibleStateImageBehavior = false;
-            this.lvFrames.View = System.Windows.Forms.View.List;
-            this.lvFrames.SelectedIndexChanged += new System.EventHandler(this.lvFrames_SelectedIndexChanged);
-            // 
-            // pnlAnimations
-            // 
-            this.pnlAnimations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlAnimations.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.pnlAnimations.Controls.Add(this.lvAnimations);
-            this.pnlAnimations.Controls.Add(this.btnAddAnim);
-            this.pnlAnimations.Controls.Add(this.btnRemoveAnim);
-            this.pnlAnimations.Location = new System.Drawing.Point(4, 32);
-            this.pnlAnimations.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlAnimations.Name = "pnlAnimations";
-            this.pnlAnimations.Size = new System.Drawing.Size(194, 189);
-            this.pnlAnimations.TabIndex = 3;
+            this.btnAnimStop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnimStop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.btnAnimStop.Image = global::Umaro.Properties.Resources.anim_stop;
+            this.btnAnimStop.Location = new System.Drawing.Point(1, 1);
+            this.btnAnimStop.Name = "btnAnimStop";
+            this.btnAnimStop.Size = new System.Drawing.Size(22, 22);
+            this.btnAnimStop.TabIndex = 0;
+            this.btnAnimStop.UseVisualStyleBackColor = false;
+            this.btnAnimStop.Click += new System.EventHandler(this.btnAnimStop_Click);
             // 
             // lvAnimations
             // 
@@ -440,10 +361,10 @@
             this.clnAnimName});
             this.lvAnimations.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lvAnimations.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.lvAnimations.Location = new System.Drawing.Point(0, 3);
+            this.lvAnimations.Location = new System.Drawing.Point(1, 1);
             this.lvAnimations.MultiSelect = false;
             this.lvAnimations.Name = "lvAnimations";
-            this.lvAnimations.Size = new System.Drawing.Size(190, 152);
+            this.lvAnimations.Size = new System.Drawing.Size(190, 157);
             this.lvAnimations.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvAnimations.TabIndex = 6;
             this.lvAnimations.UseCompatibleStateImageBehavior = false;
@@ -462,7 +383,7 @@
             this.btnAddAnim.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.btnAddAnim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddAnim.Image = global::Umaro.Properties.Resources.AddMark_10580;
-            this.btnAddAnim.Location = new System.Drawing.Point(3, 158);
+            this.btnAddAnim.Location = new System.Drawing.Point(4, 163);
             this.btnAddAnim.Margin = new System.Windows.Forms.Padding(0);
             this.btnAddAnim.Name = "btnAddAnim";
             this.btnAddAnim.Size = new System.Drawing.Size(28, 28);
@@ -477,7 +398,7 @@
             this.btnRemoveAnim.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.btnRemoveAnim.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveAnim.Image = global::Umaro.Properties.Resources.Clearallrequests_8816;
-            this.btnRemoveAnim.Location = new System.Drawing.Point(33, 158);
+            this.btnRemoveAnim.Location = new System.Drawing.Point(34, 163);
             this.btnRemoveAnim.Margin = new System.Windows.Forms.Padding(0);
             this.btnRemoveAnim.Name = "btnRemoveAnim";
             this.btnRemoveAnim.Size = new System.Drawing.Size(28, 28);
@@ -485,10 +406,151 @@
             this.btnRemoveAnim.UseVisualStyleBackColor = false;
             this.btnRemoveAnim.Click += new System.EventHandler(this.btnRemoveAnim_Click);
             // 
+            // tabFrames
+            // 
+            this.tabFrames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.tabFrames.Controls.Add(this.btnAddFrame);
+            this.tabFrames.Controls.Add(this.lblAnimName);
+            this.tabFrames.Controls.Add(this.btnRemoveFrame);
+            this.tabFrames.Controls.Add(this.lvFrames);
+            this.tabFrames.Controls.Add(this.lblSizeCross);
+            this.tabFrames.Controls.Add(this.txtFrameWidth);
+            this.tabFrames.Controls.Add(this.lblFrameSize);
+            this.tabFrames.Controls.Add(this.txtFrameHeight);
+            this.tabFrames.ForeColor = System.Drawing.Color.White;
+            this.tabFrames.ImageIndex = 1;
+            this.tabFrames.Location = new System.Drawing.Point(4, 25);
+            this.tabFrames.Name = "tabFrames";
+            this.tabFrames.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFrames.Size = new System.Drawing.Size(193, 195);
+            this.tabFrames.TabIndex = 1;
+            this.tabFrames.Text = "Frames";
+            // 
+            // btnAddFrame
+            // 
+            this.btnAddFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(78)))), ((int)(((byte)(78)))));
+            this.btnAddFrame.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.btnAddFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddFrame.Image = global::Umaro.Properties.Resources.AddMark_10580;
+            this.btnAddFrame.Location = new System.Drawing.Point(4, 163);
+            this.btnAddFrame.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAddFrame.Name = "btnAddFrame";
+            this.btnAddFrame.Size = new System.Drawing.Size(28, 28);
+            this.btnAddFrame.TabIndex = 26;
+            this.btnAddFrame.UseVisualStyleBackColor = false;
+            this.btnAddFrame.Click += new System.EventHandler(this.btnAddFrame_Click);
+            // 
+            // lblAnimName
+            // 
+            this.lblAnimName.AutoSize = true;
+            this.lblAnimName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.lblAnimName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblAnimName.ForeColor = System.Drawing.Color.White;
+            this.lblAnimName.Location = new System.Drawing.Point(3, 3);
+            this.lblAnimName.Margin = new System.Windows.Forms.Padding(0);
+            this.lblAnimName.Name = "lblAnimName";
+            this.lblAnimName.Size = new System.Drawing.Size(11, 13);
+            this.lblAnimName.TabIndex = 21;
+            this.lblAnimName.Text = "-";
+            // 
+            // btnRemoveFrame
+            // 
+            this.btnRemoveFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRemoveFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(78)))), ((int)(((byte)(78)))), ((int)(((byte)(78)))));
+            this.btnRemoveFrame.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.btnRemoveFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveFrame.Image = global::Umaro.Properties.Resources.Clearallrequests_8816;
+            this.btnRemoveFrame.Location = new System.Drawing.Point(34, 163);
+            this.btnRemoveFrame.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRemoveFrame.Name = "btnRemoveFrame";
+            this.btnRemoveFrame.Size = new System.Drawing.Size(28, 28);
+            this.btnRemoveFrame.TabIndex = 27;
+            this.btnRemoveFrame.UseVisualStyleBackColor = false;
+            this.btnRemoveFrame.Click += new System.EventHandler(this.btnRemoveFrame_Click);
+            // 
+            // lvFrames
+            // 
+            this.lvFrames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvFrames.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.lvFrames.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvFrames.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lvFrames.Location = new System.Drawing.Point(1, 19);
+            this.lvFrames.MultiSelect = false;
+            this.lvFrames.Name = "lvFrames";
+            this.lvFrames.Size = new System.Drawing.Size(190, 139);
+            this.lvFrames.TabIndex = 20;
+            this.lvFrames.UseCompatibleStateImageBehavior = false;
+            this.lvFrames.View = System.Windows.Forms.View.List;
+            this.lvFrames.SelectedIndexChanged += new System.EventHandler(this.lvFrames_SelectedIndexChanged);
+            // 
+            // lblSizeCross
+            // 
+            this.lblSizeCross.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSizeCross.AutoSize = true;
+            this.lblSizeCross.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.lblSizeCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblSizeCross.ForeColor = System.Drawing.Color.Gray;
+            this.lblSizeCross.Location = new System.Drawing.Point(147, 169);
+            this.lblSizeCross.Name = "lblSizeCross";
+            this.lblSizeCross.Size = new System.Drawing.Size(13, 13);
+            this.lblSizeCross.TabIndex = 25;
+            this.lblSizeCross.Text = "x";
+            // 
+            // txtFrameWidth
+            // 
+            this.txtFrameWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFrameWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.txtFrameWidth.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFrameWidth.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtFrameWidth.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtFrameWidth.Location = new System.Drawing.Point(119, 169);
+            this.txtFrameWidth.Name = "txtFrameWidth";
+            this.txtFrameWidth.Size = new System.Drawing.Size(26, 16);
+            this.txtFrameWidth.TabIndex = 22;
+            this.txtFrameWidth.Text = "16";
+            this.txtFrameWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblFrameSize
+            // 
+            this.lblFrameSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFrameSize.AutoSize = true;
+            this.lblFrameSize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.lblFrameSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblFrameSize.ForeColor = System.Drawing.Color.Gray;
+            this.lblFrameSize.Location = new System.Drawing.Point(84, 171);
+            this.lblFrameSize.Name = "lblFrameSize";
+            this.lblFrameSize.Size = new System.Drawing.Size(35, 13);
+            this.lblFrameSize.TabIndex = 24;
+            this.lblFrameSize.Text = "Size:";
+            // 
+            // txtFrameHeight
+            // 
+            this.txtFrameHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFrameHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.txtFrameHeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFrameHeight.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtFrameHeight.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtFrameHeight.Location = new System.Drawing.Point(160, 169);
+            this.txtFrameHeight.Name = "txtFrameHeight";
+            this.txtFrameHeight.Size = new System.Drawing.Size(26, 16);
+            this.txtFrameHeight.TabIndex = 23;
+            this.txtFrameHeight.Text = "16";
+            this.txtFrameHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tabIcons
+            // 
+            this.tabIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabIcons.ImageStream")));
+            this.tabIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.tabIcons.Images.SetKeyName(0, "Animation_10763.png");
+            this.tabIcons.Images.SetKeyName(1, "Frame_12655.png");
+            // 
             // pnlBorder
             // 
             this.pnlBorder.BackColor = System.Drawing.Color.Black;
-            this.pnlBorder.Controls.Add(this.resizeGrip1);
+            this.pnlBorder.Controls.Add(this.resizeGripForm);
             this.pnlBorder.Controls.Add(this.lblTitle);
             this.pnlBorder.Controls.Add(this.sStrip);
             this.pnlBorder.Controls.Add(this.headerMenuMain);
@@ -500,17 +562,18 @@
             this.pnlBorder.Size = new System.Drawing.Size(706, 444);
             this.pnlBorder.TabIndex = 3;
             // 
-            // resizeGrip1
+            // resizeGripForm
             // 
-            this.resizeGrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.resizeGrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
-            this.resizeGrip1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resizeGrip1.BackgroundImage")));
-            this.resizeGrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.resizeGrip1.Location = new System.Drawing.Point(689, 427);
-            this.resizeGrip1.Name = "resizeGrip1";
-            this.resizeGrip1.Size = new System.Drawing.Size(16, 16);
-            this.resizeGrip1.TabIndex = 7;
-            this.resizeGrip1.Target = this;
+            this.resizeGripForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.resizeGripForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
+            this.resizeGripForm.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("resizeGripForm.BackgroundImage")));
+            this.resizeGripForm.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.resizeGripForm.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.resizeGripForm.Location = new System.Drawing.Point(689, 427);
+            this.resizeGripForm.Name = "resizeGripForm";
+            this.resizeGripForm.Size = new System.Drawing.Size(16, 16);
+            this.resizeGripForm.TabIndex = 7;
+            this.resizeGripForm.Target = this;
             // 
             // lblTitle
             // 
@@ -578,7 +641,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -589,7 +652,7 @@
             this.xMLToolStripMenuItem,
             this.plainTextToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.importToolStripMenuItem.Text = "Import...";
             // 
             // imageToolStripMenuItem
@@ -619,7 +682,7 @@
             this.xMLToolStripMenuItem1,
             this.plainTextToolStripMenuItem1});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // xMLToolStripMenuItem1
@@ -639,7 +702,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -697,7 +760,6 @@
             // 
             // tmrPreview
             // 
-            this.tmrPreview.Enabled = true;
             this.tmrPreview.Interval = 10;
             this.tmrPreview.Tick += new System.EventHandler(this.tmrPreview_Tick);
             // 
@@ -738,13 +800,17 @@
             this.cntMain.Panel2.ResumeLayout(false);
             this.cntMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.zbPreview)).EndInit();
+            this.pnlCanvas.ResumeLayout(false);
+            this.pnlCanvas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zbMain)).EndInit();
             this.cntSidebar.Panel1.ResumeLayout(false);
             this.cntSidebar.Panel2.ResumeLayout(false);
             this.cntSidebar.ResumeLayout(false);
-            this.pnlFrames.ResumeLayout(false);
-            this.pnlFrames.PerformLayout();
-            this.pnlAnimations.ResumeLayout(false);
+            this.tabSidebarTop.ResumeLayout(false);
+            this.tabAnimations.ResumeLayout(false);
+            this.pnlAnimControls.ResumeLayout(false);
+            this.tabFrames.ResumeLayout(false);
+            this.tabFrames.PerformLayout();
             this.pnlBorder.ResumeLayout(false);
             this.pnlBorder.PerformLayout();
             this.sStrip.ResumeLayout(false);
@@ -775,23 +841,19 @@
         private System.Windows.Forms.Timer tmrPreview;
         private System.Windows.Forms.SaveFileDialog saveXmlDlg;
         private System.Windows.Forms.OpenFileDialog openXmlDlg;
-        private System.Windows.Forms.Panel pnlFrames;
         private System.Windows.Forms.Label lblSizeCross;
         private System.Windows.Forms.Label lblFrameSize;
         private System.Windows.Forms.TextBox txtFrameHeight;
         private System.Windows.Forms.TextBox txtFrameWidth;
         private System.Windows.Forms.Label lblAnimName;
         private System.Windows.Forms.ListView lvFrames;
-        private System.Windows.Forms.Panel pnlAnimations;
         private System.Windows.Forms.ListView lvAnimations;
         private System.Windows.Forms.ColumnHeader clnAnimName;
         private System.Windows.Forms.Button btnAddAnim;
         private System.Windows.Forms.Button btnRemoveAnim;
-        private System.Windows.Forms.Button btnTabAnimations;
-        private System.Windows.Forms.Button btnTabFrames;
         private System.Windows.Forms.Button btnAddFrame;
         private System.Windows.Forms.Button btnRemoveFrame;
-        private ResizeGrip resizeGrip1;
+        private ResizeGrip resizeGripForm;
         private System.Windows.Forms.SaveFileDialog saveTextDialog;
         private System.Windows.Forms.OpenFileDialog openTextDlg;
         private HeaderMenu headerMenuMain;
@@ -810,6 +872,15 @@
         private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minStripMenuItem;
+        private FlatTabControl tabSidebarTop;
+        private System.Windows.Forms.TabPage tabAnimations;
+        private System.Windows.Forms.TabPage tabFrames;
+        private PanelNoFocusScroll pnlCanvas;
+        private System.Windows.Forms.Panel pnlAnimControls;
+        private System.Windows.Forms.Button btnAnimStop;
+        private System.Windows.Forms.Button btnAnimPrevFrame;
+        private System.Windows.Forms.Button btnAnimNextFrame;
+        private System.Windows.Forms.Button btnAnimPlayPause;
     }
 }
 

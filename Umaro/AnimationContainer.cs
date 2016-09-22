@@ -34,6 +34,11 @@ namespace Umaro
         {
             get { return _animations; }
         }
+
+        public AnimationInfo this[string key]
+        {
+            get { return _animations[key]; }
+        }
         #endregion
 
         #region Methods()

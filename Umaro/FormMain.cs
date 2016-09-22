@@ -2,12 +2,13 @@
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Umaro.Formatters;
+using Umaro.Properties;
 
 namespace Umaro
 {
-    //TODO: Cleanup and refactor the messy code
     public partial class FormMain : Form
     {
         #region Fields
@@ -106,10 +107,12 @@ namespace Umaro
         #endregion
 
         #region Animations tab
-
         private void btnAddAnim_Click(object sender, EventArgs e)
         {
-            string animName = InputBox.Show("Enter new animation name:");
+            string animName = InputBox.Show("Enter new animation name:",
+                input => Regex.Match(input, "^[a-zA-Z0-9_]*$").Success,
+                @"Animation name can only contain latin letters, underscores and hyphens");
+
             if (string.IsNullOrEmpty(animName))
                 return;
 
@@ -146,12 +149,11 @@ namespace Umaro
         {
             if (lvAnimations.SelectedItems.Count > 0)
             {
-                AnimationInfo anim = AnimationContainer.Instance.
-                                                        Animations[lvAnimations.SelectedItems[0].Text];
+                AnimationInfo anim = AnimationContainer.Instance.Animations[lvAnimations.SelectedItems[0].Text];
 
                 pgFrameInfo.SelectedObject = anim;
                 _lastAnimation = anim;
-                lblAnimName.Text = anim.Name;
+                lblAnimName.Text = @"Animation: " + anim.Name;
                 lvFrames.Items.Clear();
 
                 _frameIndex = 0;
@@ -165,7 +167,6 @@ namespace Umaro
         #endregion
 
         #region Frames tab
-
         private void btnAddFrame_Click(object sender, EventArgs e)
         {
             AnimationInfo anim = _lastAnimation;
@@ -217,13 +218,16 @@ namespace Umaro
         {
             if (lvFrames.SelectedItems.Count > 0)
                 if (_lastAnimation != null)
+                {
                     pgFrameInfo.SelectedObject = _lastAnimation.Frames[lvFrames.SelectedIndices[0]];
+                    _frameIndex = lvFrames.SelectedIndices[0];
+                    mUpdateFrame();
+                }
         }
 
         #endregion
 
         #region Misc handlers (property window, timer, canvas, etc.)
-
         private void pgFrameInfo_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             if (pgFrameInfo.SelectedObject != null)
@@ -253,6 +257,9 @@ namespace Umaro
                 //Draw the frame borders
                 foreach (AnimationInfo anim in AnimationContainer.Instance.Animations.Values)
                 {
+                    if (lvAnimations.FindItemWithText(anim.Name) == null)
+                        break;
+
                     int i = lvAnimations.FindItemWithText(anim.Name).Index;
                     for (int j = 0; j < anim.Frames.Count; j++)
                     {
@@ -331,35 +338,56 @@ namespace Umaro
                 zbMain.Invalidate();
         }
 
+        private void tabSidebarTop_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pgFrameInfo.SelectedObject = null;
+            if (tabSidebarTop.SelectedIndex != 0)
+                btnAnimStop_Click(sender, e);
+        }
         #endregion
 
-        //TODO: Find/implement a custom TabControl for this
-        #region Tab management
-
-        //Default TabControl is almost non-customizable
-        //So I decided to toggle panels instead
-        //Looks dirty, but works
-        private void btnTabAnimations_Click(object sender, EventArgs e)
+        #region Animation control
+        private void btnAnimStop_Click(object sender, EventArgs e)
         {
-            btnTabAnimations.BackColor = btnAddAnim.BackColor;
-            btnTabFrames.BackColor = cntSidebar.BackColor;
-            pnlAnimations.Visible = pnlAnimations.Enabled = true;
-            pnlFrames.Visible = pnlFrames.Enabled = false;
-            lvFrames.SelectedIndices.Clear();
-            pgFrameInfo.SelectedObject = null;
+            tmrPreview.Stop();
+            _ticks = _frameIndex = 0;
+            btnAnimPlayPause.Image = Resources.anim_play;
+            mUpdateFrame();
         }
 
-        //Same here
-        private void btnTabFrames_Click(object sender, EventArgs e)
+        private void btnAnimPlayPause_Click(object sender, EventArgs e)
         {
-            btnTabFrames.BackColor = btnAddAnim.BackColor;
-            btnTabAnimations.BackColor = cntSidebar.BackColor;
-            pnlAnimations.Visible = pnlAnimations.Enabled = false;
-            pnlFrames.Visible = pnlFrames.Enabled = true;
-            lvAnimations.SelectedIndices.Clear();
-            pgFrameInfo.SelectedObject = null;
+            if (tmrPreview.Enabled)
+            {
+                tmrPreview.Stop();
+                btnAnimPlayPause.Image = Resources.anim_play;
+            }
+            else
+            {
+                tmrPreview.Start();
+                btnAnimPlayPause.Image = Resources.anim_pause;
+            }
+
+            mUpdateFrame();
         }
 
+        private void btnAnimNextFrame_Click(object sender, EventArgs e)
+        {
+            if (_lastAnimation != null)
+                if (_lastAnimation.Frames.Count > 1)
+                    _frameIndex = (_lastAnimation.Frames.Count == _frameIndex + 1 ? 0 : ++_frameIndex);
+
+            mUpdateFrame();
+        }
+
+        private void btnAnimPrevFrame_Click(object sender, EventArgs e)
+        {
+            if (_lastAnimation != null)
+                if (_lastAnimation.Frames.Count > 1)
+                    _frameIndex = (_frameIndex - 1 < 0 ? _lastAnimation.Frames.Count - 1 : --_frameIndex);
+
+            mUpdateFrame();
+        }
         #endregion
     }
 }

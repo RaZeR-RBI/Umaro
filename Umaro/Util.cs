@@ -31,6 +31,9 @@ namespace Umaro
             if (_lastAnimation == null)
                 return;
 
+            if (_lastAnimation.Frames.Count == 0)
+                return;
+
             FrameInfo frame = _lastAnimation.Frames[_frameIndex];
             Bitmap bm = new Bitmap(frame.Width, frame.Height);
             Rectangle bounds = new Rectangle(frame.X, frame.Y, frame.Width, frame.Height);
@@ -44,7 +47,6 @@ namespace Umaro
 
         private class CustomMenuRenderer : ToolStripProfessionalRenderer
         {
-            //TODO: Move the colors and fonts to separate class to allow custom styling
             private readonly Brush back = new SolidBrush(Color.FromArgb(52, 52, 52));
             private readonly Pen border = new Pen(new SolidBrush(Color.FromArgb(25, 25, 25)));
 
@@ -60,12 +62,12 @@ namespace Umaro
             protected override void InitializeItem(ToolStripItem item)
             {
                 base.InitializeItem(item);
-                item.ForeColor = Color.Gray;
+                item.ForeColor = Color.White;
 
                 ToolStripMenuItem menuItem = item as ToolStripMenuItem;
                 if (menuItem != null) //This item is a drop-down menu
                     foreach (ToolStripMenuItem subItem in mGetItems(menuItem))
-                        subItem.ForeColor = Color.Gray;
+                        subItem.ForeColor = Color.White;
             }
 
             private IEnumerable<ToolStripMenuItem> mGetItems(ToolStripMenuItem item)

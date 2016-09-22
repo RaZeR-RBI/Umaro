@@ -57,6 +57,12 @@
     <Compile Include="AnimationData.cs" />
     <Compile Include="AnimationContainer.cs" />
     <Compile Include="ColorGenerator.cs" />
+    <Compile Include="FlatTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FlatTabControl.Designer.cs">
+      <DependentUpon>FlatTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="HeaderMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </Compile>
     <Compile Include="ResizeGrip.Designer.cs">
       <DependentUpon>ResizeGrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PanelNoFocusScroll.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Util.cs">
       <SubType>Form</SubType>
@@ -161,6 +170,11 @@
     <None Include="Samples\sara-cal.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\anim_next.png" />
+    <None Include="Resources\anim_pause.png" />
+    <None Include="Resources\anim_play.png" />
+    <None Include="Resources\anim_prev.png" />
+    <None Include="Resources\anim_stop.png" />
     <Content Include="umaro_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

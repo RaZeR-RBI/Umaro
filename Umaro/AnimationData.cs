@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 #if SYS_DRAWING
+using System.ComponentModel;
 using System.Drawing;
 #endif
 
@@ -15,6 +16,7 @@ namespace Umaro
         public int Delay { get; set; }
 
 #if SYS_DRAWING
+        [Browsable(false)]
         public Point Location
         {
             get { return new Point(X, Y); }
@@ -25,6 +27,7 @@ namespace Umaro
             }
         }
 
+        [Browsable(false)]
         public Point Size
         {
             get { return new Point(Width, Height); }
