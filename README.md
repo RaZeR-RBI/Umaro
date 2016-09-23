@@ -1,3 +1,5 @@
+<img src="https://ci.appveyor.com/api/projects/status/github/razer-rawbyte/umaro?svg=true" alt="Build status badge" width="128" />
+
 # What is this?
 Umaro is a 2D frame animation editor mostly oriented for pixel-art artists and game developers.
 

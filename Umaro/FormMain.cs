@@ -389,5 +389,15 @@ namespace Umaro
             mUpdateFrame();
         }
         #endregion
+
+        private void pNGWithMetadataToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            mSaveFile(AnimationContainer.Instance, savePNGDialog, PNGMetaFormatter.Instance);
+        }
+
+        private void importPNGWithMetadataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mOpenFile(AnimationContainer.Instance, openPNGDialog, PNGMetaFormatter.Instance);
+        }
     }
 }

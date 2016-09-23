@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 
 namespace Umaro.Formatters
 {
@@ -12,16 +13,11 @@ namespace Umaro.Formatters
         }
         #endregion
 
-        public override void Write(string path, AnimationContainer data)
-        {
-            //TODO: Add png metadata saving
-        }
-
         public override void Read(string path, AnimationContainer target)
         {
-            //TODO: Add png metadata loading
-            //Currently only loads the base image
-            target.Sprite = (Bitmap)Image.FromFile(path);
+            //Metadata is now loaded through PNGMetaFormatter
+            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+                target.Sprite = (Bitmap)Image.FromStream(stream);
         }
     }
 }

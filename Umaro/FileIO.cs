@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if !DEBUG
+using System;
+#endif
 using System.Windows.Forms;
 using Umaro.Formatters;
 
